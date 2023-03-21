@@ -1,45 +1,44 @@
 import React from "react";
+
+//React Native
 import {
-  StyleSheet,
-  Text,
   View,
-  Alert,
-  TouchableHighlight,
-  TouchableNativeFeedback,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
 } from "react-native";
 
+//React navigation
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
 //Components
-import Main from "./src/Components/Main.jsx"
+import Chat from "./src/Screens/Chat.js"
+import Login from "./src/Screens/Login.js"
+import SignUp from "./src/Screens/SignUp.js"
 
 //npm i --save-dev babel-eslint eslint-config-standard
 //eslint-config-standard-jsx eslint-config-standard-react eslint-plugin-promise eslint-plugin-import
 //eslint-plugin-node eslint-plugin-react
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <TouchableNativeFeedback
-        style={styles.Touch}
-        onPress={() => {
-          Alert.alert("Pressed");
-        }}
-      >
+const Stack = createStackNavigator();
 
-        <Text>Press Me</Text>
-      </TouchableNativeFeedback>
-        <Main/>
 
-    </View>
-  );
+const ChatStack = () => {
+  return ( <Stack.Navigator screenOptions={{headerShown:false}} >
+    <Stack.Screen name="Login" component={Login} />
+  </Stack.Navigator> );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const RootNavigator =()=>{
+  return(
+    <NavigationContainer>
+      <ChatStack/>
+    </NavigationContainer>
+  )
+}
+ 
+
+
+export default function App() {
+  return (
+   <RootNavigator/>
+  );
+}
