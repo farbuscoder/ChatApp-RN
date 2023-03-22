@@ -1,34 +1,34 @@
 import React,{useState} from 'react'
 
 //React native
-import { StyleSheet,Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, } from 'react-native'
+import { StyleSheet,Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, Alert} from 'react-native'
 
 //Firebase
-import {createUserWithEmailAndPassword} from "firebase/auth"
+import {signInWithEmailAndPassword} from "firebase/auth"
 
 //Config
-import {auth} from "../config/Firebase";
+import {auth} from "./../config/Firebase";
 
 //Image
 //const backImage = require("../assets/backImage.png");
 
 
-const SignUp = ({navigation}) => {
+const Login = ({navigation}) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const onHandleSignUp = ()=>{
+    const onHandleLogin = ()=>{
         if(email !== "" || password !==""){
-            createUserWithEmailAndPassword(auth, email, password)
-            .then(()=>console.log("SignUp Sucess"))
-            .catch((err)=>Alert.alert("SignUp error", err.message))
+            signInWithEmailAndPassword(auth, email, password)
+            .then(()=>console.log("Login Sucess"))
+            .catch((err)=>Alert.alert("Login error", err.message))
         }
     }
 
     return ( 
     <View style={styles.container} >
-        <Image source={require("../../assets/backImage.png")} style={styles.backImage} />
+        <Image source={require("../assets/backImage.png")} style={styles.backImage} />
         <View style={styles.whiteSheet} />
         <SafeAreaView style={styles.form} >
           <Text style={styles.title}>Login</Text>
@@ -53,13 +53,13 @@ const SignUp = ({navigation}) => {
           value={password}
           onChangeText={(text)=>setPassword(text)}
           />
-          <TouchableOpacity style={styles.button} onPress={onHandleSignUp} >
+          <TouchableOpacity style={styles.button} onPress={onHandleLogin} >
             <Text style={{fontWeight:'bold', color:"#fff", fontSize:18}} >Log In</Text>
           </TouchableOpacity>
           <View style={{marginTop:20, flexDirection:'row', alignItems:"center", alignSelf:"center"}} >
-            <Text style={{color:"gray",fontWeight:"600", fontSize:14}}>Already have an account? </Text>
-            <TouchableOpacity onPress={()=>navigation.navigate("Signin")} >
-            <Text style={{fontWeight:'bold', color:"#f57c00", fontSize:14}} >Sign In</Text>
+            <Text style={{color:"gray",fontWeight:"600", fontSize:14}}>Don`t have an account? </Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("SignUp")} >
+            <Text style={{fontWeight:'bold', color:"#f57c00", fontSize:14}} >Sign Up</Text>
           </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -118,4 +118,4 @@ const styles = StyleSheet.create({
       },
 })
  
-export default SignUp;
+export default Login;
